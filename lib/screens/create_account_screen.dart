@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:store/widgets/store_text_field.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class CreateAccountScreen extends StatefulWidget {
+  const CreateAccountScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<CreateAccountScreen> createState() => _CreateAccountScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _CreateAccountScreenState extends State<CreateAccountScreen> {
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Login to your account',
+              'Create an account',
               style: TextStyle(
                 fontFamily: 'Readex Pro',
                 fontSize: 32,
@@ -40,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Gap(8),
 
             Text(
-              'It’s great to see you again.',
+              'Let’s create your account.',
               style: TextStyle(
                 fontFamily: 'Readex Pro',
                 fontSize: 16,
@@ -51,6 +53,26 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
 
             Gap(24),
+
+            Text(
+              'Full Name',
+              style: TextStyle(
+                fontFamily: 'Readex Pro',
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                height: 1.4,
+                color: Color(0xff1A1A1A),
+              ),
+            ),
+
+            Gap(4),
+
+            StoreTextField(
+              emailController: nameController,
+              hintText: 'Enter your full name',
+            ),
+
+            Gap(16),
 
             Text(
               'Email',
@@ -91,7 +113,28 @@ class _LoginScreenState extends State<LoginScreen> {
               hintText: 'Enter your password',
             ),
 
-            Gap(55),
+            Gap(42),
+
+            Text(
+              'Confirm Password',
+              style: TextStyle(
+                fontFamily: 'Readex Pro',
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                height: 1.4,
+                color: Color(0xff1A1A1A),
+              ),
+            ),
+
+            Gap(4),
+
+            StoreTextField(
+              isPassword: true,
+              emailController: confirmPasswordController,
+              hintText: 'Enter your password',
+            ),
+
+            Gap(42),
 
             Center(
               child: InkWell(
@@ -110,12 +153,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   child: Center(
                     child: Text(
-                      'Sign In',
+                      'Create Account',
                       style: TextStyle(
                         fontFamily: 'DM Sans',
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         height: 20 / 14,
+                        letterSpacing: 0,
                         color: Color(0xffFFFFFF),
                       ),
                     ),
@@ -135,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Don’t have an account? ',
+                      'Already have an account? ',
                       style: TextStyle(
                         fontFamily: 'Readex Pro',
                         fontSize: 16,
@@ -148,13 +192,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/create_account_screen',
-                        );
+                        Navigator.pop(context);
                       },
                       child: Text(
-                        'Join',
+                        'Log In',
                         style: TextStyle(
                           fontFamily: 'Readex Pro',
                           fontSize: 16,

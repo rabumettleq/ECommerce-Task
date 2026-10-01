@@ -1,109 +1,269 @@
 import 'package:flutter/material.dart';
+import 'package:store/models/product.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
 
+  String getPrice(Product product) {
+    return '\$ ${product.price.toStringAsFixed(0).replaceAllMapped(
+      RegExp(r'(\d)(?=(\d{3})+(?!\d))'),
+          (match) => '${match[1]},',
+    )}';
+  }
+
   @override
   Widget build(BuildContext context) {
-    final name = ModalRoute.of(context)!.settings.arguments as Map<String , dynamic>;
+    final product =
+    ModalRoute.of(context)!.settings.arguments as Product;
 
     return Scaffold(
-      backgroundColor: Color(0xFFFFFFFF),
-      appBar: AppBar(
-        backgroundColor: Color(0xFFFFFFFF),
-        leading: Icon(Icons.arrow_back),
-        title: Text('Details'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            children: [
-              Text('${name['age']}'),
-              Image.asset('assets/images/image.png', width: 368, height: 341),
-              SizedBox(height: 12),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Fit Polo T Shirt',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+      backgroundColor: Color(0xffFFFFFF),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: 59,
+                  left: 24,
+                  right: 24,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Header
+                    SizedBox(
+                      height: 29,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: Icon(
+                                  Icons.arrow_back,
+                                  size: 24,
+                                  color: Color(0xff1A1A1A),
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          Center(
+                            child: Text(
+                              'Details',
+                              style: TextStyle(
+                                fontFamily: 'Readex Pro',
+                                fontSize: 24,
+                                fontWeight: FontWeight.w600,
+                                height: 1.2,
+                                letterSpacing: 0,
+                                color: Color(0xff1A1A1A),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(height: 20),
+
+                    // Product Image
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: SizedBox(
+                        width: 341,
+                        height: 368.53,
+                        child: Image.asset(
+                          product.imagePath,
+                          fit: BoxFit.contain,
+                          filterQuality: FilterQuality.high,
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(height: 12),
+
+                    // Product Name
+                    Text(
+                      product.name,
+                      style: TextStyle(
+                        fontFamily: 'DM Sans',
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        height: 1.2,
+                        letterSpacing: 0,
+                        color: Color(0xff1A1A1A),
+                      ),
+                    ),
+
+                    SizedBox(height: 13),
+
+                    // Rating
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.star,
+                          size: 18.85,
+                          color: Color(0xffFFA928),
+                        ),
+
+                        SizedBox(width: 6),
+
+                        Text(
+                          '4.0/5 (45 reviews)',
+                          style: TextStyle(
+                            fontFamily: 'Readex Pro',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            height: 1.4,
+                            letterSpacing: 0,
+                            color: Color(0xff1A1A1A),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: 13),
+
+                    // Product Description
+                    Text(
+                      product.details,
+                      style: TextStyle(
+                        fontFamily: 'DM Sans',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        height: 1.4,
+                        letterSpacing: 0,
+                        color: Color(0xff808080),
+                      ),
+                    ),
+
+                    SizedBox(height: 20),
+                  ],
                 ),
               ),
-              SizedBox(height: 15),
-              Row(
-                children: [
-                  Icon(Icons.star, color: Color(0xffFFA928), size: 18),
-                  SizedBox(width: 6),
-                  Text(
-                    '4.0/5',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                  Text(
-                    '  (45 Reviews)',
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
-                  ),
-                ],
+            ),
+          ),
+
+          // Bottom Section
+          Container(
+            width: double.infinity,
+            height: 105,
+            decoration: BoxDecoration(
+              color: Color(0xffFFFFFF),
+              border: Border(
+                top: BorderSide(
+                  color: Color(0xffE6E6E6),
+                  width: 1,
+                ),
               ),
-              SizedBox(height: 13),
-              Text(
-                'Blue T Shirt . Good for All Men and Suits for All of Them.Blue T Shirt . Good for All Men and Suits for All of Them',
-                style: TextStyle(color: Colors.grey, fontSize: 16),
-              ),
-              Spacer(),
-              Container(width: double.infinity, height: 1, color: Colors.grey),
-              SizedBox(height: 22),
-              Row(
-                children: [
-                  Column(
+            ),
+            child: Stack(
+              children: [
+                // Price
+                Positioned(
+                  left: 24,
+                  top: 22,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Price',
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
-                      ),
-                      Text(
-                        '\$ 1.192',
+                        maxLines: 1,
+                        softWrap: false,
                         style: TextStyle(
+                          fontFamily: 'Readex Pro',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          height: 1.4,
+                          letterSpacing: 0,
+                          color: Color(0xff808080),
+                        ),
+                      ),
+
+                      Text(
+                        getPrice(product),
+                        maxLines: 1,
+                        softWrap: false,
+                        style: TextStyle(
+                          fontFamily: 'Readex Pro',
                           fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
+                          height: 1.2,
+                          letterSpacing: 0,
+                          color: Color(0xff1A1A1A),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(width: 16),
-                  GestureDetector(
+                ),
+
+                // Add to Cart Button
+                Positioned(
+                  top: 20,
+                  left: 125,
+                  right: 24,
+                  height: 54,
+                  child: GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/login_screen');
+                      int index = cartProducts.indexWhere(
+                            (item) =>
+                        item.name == product.name &&
+                            item.size == product.size,
+                      );
+
+                      if (index != -1) {
+                        cartProducts[index].quantity++;
+                      } else {
+                        cartProducts.add(product);
+                      }
+
+                      Navigator.pop(context);
                     },
                     child: Container(
-                      width: 240,
-                      height: 54,
                       decoration: BoxDecoration(
                         color: Color(0xff3669C9),
-                        borderRadius: BorderRadiusDirectional.circular(10),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Center(
-                        child: Text(
-                          'Add to card',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.shopping_bag_outlined,
+                            size: 24,
+                            color: Color(0xffFFFFFF),
                           ),
-                        ),
+
+                          SizedBox(width: 10),
+
+                          Text(
+                            'Add to Cart',
+                            style: TextStyle(
+                              fontFamily: 'Readex Pro',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              height: 1.4,
+                              letterSpacing: 0,
+                              color: Color(0xffFFFFFF),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

@@ -18,3 +18,5 @@ class Product {
     required this.size,
   });
 }
+
+List<Product> cartProducts = [];

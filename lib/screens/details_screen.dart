@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:store/models/product.dart';
+import 'package:store/widgets/store_header.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
@@ -32,45 +33,7 @@ class DetailsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Header
-                    SizedBox(
-                      height: 29,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: SizedBox(
-                                width: 24,
-                                height: 24,
-                                child: Icon(
-                                  Icons.arrow_back,
-                                  size: 24,
-                                  color: Color(0xff1A1A1A),
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          Center(
-                            child: Text(
-                              'Details',
-                              style: TextStyle(
-                                fontFamily: 'Readex Pro',
-                                fontSize: 24,
-                                fontWeight: FontWeight.w600,
-                                height: 1.2,
-                                letterSpacing: 0,
-                                color: Color(0xff1A1A1A),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    StoreHeader(title: 'Details'),
 
                     SizedBox(height: 20),
 

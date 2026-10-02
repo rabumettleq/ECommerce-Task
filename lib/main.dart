@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:store/models/product.dart';
 import 'package:store/screens/cart_screen.dart';
 import 'package:store/screens/details_screen.dart';
 import 'package:store/screens/home_screen.dart';
 import 'package:store/screens/login_screen.dart';
-import 'package:store/widgets/product_widget.dart';
 import 'package:store/screens/create_account_screen.dart';
 
 void main() => runApp(MyApp());

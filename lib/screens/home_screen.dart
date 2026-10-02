@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:store/models/product.dart';
 import 'package:store/widgets/product_widget.dart';
+import 'package:store/widgets/store_bottom_navigation.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -285,94 +286,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            Container(
-              width: double.infinity,
-              height: 86,
-              decoration: BoxDecoration(
-                color: Color(0xffFFFFFF),
-                border: Border(
-                  top: BorderSide(
-                    color: Color(0xffE6E6E6),
-                    width: 1,
-                  ),
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _bottomItem(
-                      icon: Icons.home_outlined,
-                      text: 'Home',
-                      selected: true,
-                      onTap: () {},
-                    ),
-
-                    SizedBox(width: 40),
-
-                    _bottomItem(
-                      icon: Icons.shopping_cart_outlined,
-                      text: 'Cart',
-                      selected: false,
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/cart_screen',
-                        );
-                      },
-                    ),
-
-                    SizedBox(width: 40),
-
-                    _bottomItem(
-                      icon: Icons.person_outline,
-                      text: 'Account',
-                      selected: false,
-                      onTap: () {},
-                    ),
-                  ],
-                ),
-              ),
+            StoreBottomNavigation(
+              selectedItem: 'Home',
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _bottomItem({
-    required IconData icon,
-    required String text,
-    required bool selected,
-    required VoidCallback onTap,
-  }) {
-    Color itemColor = selected
-        ? Color(0xff3669C9)
-        : Color(0xff999999);
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            icon,
-            size: 24,
-            color: itemColor,
-          ),
-          Text(
-            text,
-            style: TextStyle(
-              fontFamily: 'Readex Pro',
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              height: 1.4,
-              color: itemColor,
-            ),
-          ),
-        ],
       ),
     );
   }
